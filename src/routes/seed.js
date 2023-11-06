@@ -6,8 +6,9 @@ const data = require("../db/sample_data.json");
 router.post("/", async (req, res) => {
   const db = getDb();
 
-  if (!req.body.seed && !req.body.seed !== "yes")
-    return res.status(400).json({});
+  const { seed } = req.body;
+
+  if (!seed && !seed !== "yes") return res.status(400).json({});
 
   await db.drop();
   const insertResult = await db.insertMany(data);
