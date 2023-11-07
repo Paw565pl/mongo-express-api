@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const getDb = require("../db/connection").getDb;
+const getProduct = require("../middleware/getProduct");
 
 router.get("/", async (req, res) => {
   const db = getDb();
@@ -49,6 +50,32 @@ router.post("/", async (req, res) => {
       supplier,
     });
     return res.status(201).json(newProduct);
+  } catch (error) {
+    return res.status(500).json({ message: error?.message });
+  }
+});
+
+router.put("/:id", getProduct, async (req, res) => {
+  const db = getDb();
+  const product = res.product;
+
+  const { name, description, price_in_usd, amount, rating, supplier } =
+    req.body;
+
+  const update = {
+    $set: {
+      name,
+      description,
+      price_in_usd,
+      amount,
+      rating,
+      supplier,
+    },
+  };
+
+  try {
+    const updatedProduct = await db.updateOne(product, update);
+    return res.json(updatedProduct);
   } catch (error) {
     return res.status(500).json({ message: error?.message });
   }
