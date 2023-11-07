@@ -31,4 +31,26 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.post("/", async (req, res) => {
+  const db = getDb();
+
+  const { name, description, price_in_usd, amount, rating, supplier } =
+    req.body;
+
+  product = await db.find({ name }).toArray();
+
+  if (product.length > 0) return res.json({ message: "name is not unique" });
+
+  newProduct = await db.insertOne({
+    name,
+    description,
+    price_in_usd,
+    amount,
+    rating,
+    supplier,
+  });
+
+  return res.status(201).json(newProduct);
+});
+
 module.exports = router;
