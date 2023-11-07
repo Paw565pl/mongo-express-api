@@ -8,7 +8,10 @@ const getProductById = async (req, res, next) => {
 
   try {
     const product = await db.findOne({ _id });
-    if (!product) return res.status(404).json({});
+    if (!product)
+      return res
+        .status(404)
+        .json({ message: "product with given id does not exist" });
     res.product = product;
     next();
   } catch (error) {
