@@ -10,10 +10,14 @@ router.post("/", async (req, res) => {
 
   if (!seed && !seed !== "yes") return res.status(400).json({});
 
-  await db.drop();
-  const insertResult = await db.insertMany(data);
+  try {
+    await db.drop();
+    const insertResult = await db.insertMany(data);
 
-  return res.send(insertResult);
+    return res.json(insertResult);
+  } catch (error) {
+    return res.status(500).json({ message: error?.message });
+  }
 });
 
 module.exports = router;

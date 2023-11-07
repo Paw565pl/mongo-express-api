@@ -24,10 +24,9 @@ router.get("/", async (req, res) => {
 
   try {
     const results = await db.find(queryFilters).sort(querySort).toArray();
-    res.json(results);
+    return res.json(results);
   } catch (error) {
-    console.log(error);
-    res.status(400).json({ message: error.message });
+    return res.status(500).json({ message: error?.message });
   }
 });
 
@@ -37,20 +36,22 @@ router.post("/", async (req, res) => {
   const { name, description, price_in_usd, amount, rating, supplier } =
     req.body;
 
-  product = await db.find({ name }).toArray();
+  try {
+    const product = await db.findOne({ name });
+    if (product !== null) return res.json({ message: "name is not unique" });
 
-  if (product.length > 0) return res.json({ message: "name is not unique" });
-
-  newProduct = await db.insertOne({
-    name,
-    description,
-    price_in_usd,
-    amount,
-    rating,
-    supplier,
-  });
-
-  return res.status(201).json(newProduct);
+    const newProduct = await db.insertOne({
+      name,
+      description,
+      price_in_usd,
+      amount,
+      rating,
+      supplier,
+    });
+    return res.status(201).json(newProduct);
+  } catch (error) {
+    return res.status(500).json({ message: error?.message });
+  }
 });
 
 module.exports = router;

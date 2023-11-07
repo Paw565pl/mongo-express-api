@@ -8,12 +8,11 @@ const getProduct = async (req, res, next) => {
   try {
     const product = await db.findOne({ id });
     if (!product) return res.status(404).json({});
+    res.product = product;
+    next();
   } catch (error) {
-    return res.status(500).json({ message: error.message });
+    return res.status(500).json({ message: error?.message });
   }
-
-  res.product = product;
-  next();
 };
 
 module.exports = getProduct;
