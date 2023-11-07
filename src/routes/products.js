@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const getDb = require("../db/connection").getDb;
-const getProduct = require("../middleware/getProduct");
+const getProductById = require("../middleware/getProductById");
 
 router.get("/", async (req, res) => {
   const db = getDb();
@@ -55,7 +55,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.put("/:id", getProduct, async (req, res) => {
+router.put("/:id", getProductById, async (req, res) => {
   const db = getDb();
   const product = res.product;
 
@@ -76,6 +76,18 @@ router.put("/:id", getProduct, async (req, res) => {
   try {
     const updatedProduct = await db.updateOne(product, update);
     return res.json(updatedProduct);
+  } catch (error) {
+    return res.status(500).json({ message: error?.message });
+  }
+});
+
+router.delete("/:id", getProductById, async (req, res) => {
+  const db = getDb();
+  const product = res.product;
+
+  try {
+    const deletedProduct = await db.deleteOne(product);
+    return res.json(deletedProduct);
   } catch (error) {
     return res.status(500).json({ message: error?.message });
   }
