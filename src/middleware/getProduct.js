@@ -1,12 +1,13 @@
+const ObjectId = require("mongodb").ObjectId;
 const getDb = require("../db/connection").getDb;
 
 const getProduct = async (req, res, next) => {
   const db = getDb();
 
-  const id = req.params.id;
+  const _id = new ObjectId(req.params.id);
 
   try {
-    const product = await db.findOne({ id });
+    const product = await db.findOne({ _id });
     if (!product) return res.status(404).json({});
     res.product = product;
     next();
