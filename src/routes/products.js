@@ -93,4 +93,38 @@ router.delete("/:id", getProductById, async (req, res) => {
   }
 });
 
+router.get("/raport", async (req, res) => {
+  const db = getDb();
+
+  const aggregation = [
+    {
+      $addFields: {
+        total_value: {
+          $round: [
+            {
+              $multiply: ["$price_in_usd", "$amount"],
+            },
+            2,
+          ],
+        },
+      },
+    },
+    {
+      $project: {
+        _id: 0,
+        name: 1,
+        amount: 1,
+        total_value: 1,
+      },
+    },
+  ];
+
+  try {
+    const results = await db.aggregate(aggregation).toArray();
+    return res.json(results);
+  } catch (error) {
+    return res.status(500).json({ message: error?.message });
+  }
+});
+
 module.exports = router;
