@@ -1,6 +1,6 @@
 # Live demo
 
-[Hosted on render.com](https://mongo-express-api.onrender.com)
+[Hosted on render.com](https://mongo-express-api.onrender.com/products)
 
 ### How to run it locally?
 
