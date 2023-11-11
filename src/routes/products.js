@@ -5,22 +5,27 @@ const getProductById = require("../middleware/getProductById");
 
 router.get("/", async (req, res) => {
   const db = getDb();
+  const queryParams = req.query;
 
-  const { minPrice, maxPrice, sortField, sortOrder } = req.query;
+  const queryFilters = {};
+  const querySort = {};
 
-  const querySort = {
-    [sortField]: sortOrder || 1,
-  };
+  if (Object.keys(queryParams).length !== 0) {
+    const { minPrice, maxPrice, sortField, sortOrder } = queryParams;
 
-  const queryFilters = {
-    price_in_usd: {},
-  };
+    if (minPrice)
+      queryFilters.price_in_usd = {
+        ...queryFilters.price_in_usd,
+        $gt: parseFloat(minPrice),
+      };
 
-  if (minPrice) queryFilters["price_in_usd"]["$gt"] = parseFloat(minPrice);
-  if (maxPrice) queryFilters["price_in_usd"]["$lt"] = parseFloat(maxPrice);
+    if (maxPrice)
+      queryFilters.price_in_usd = {
+        ...queryFilters.price_in_usd,
+        $lt: parseFloat(maxPrice),
+      };
 
-  if (Object.keys(queryFilters).length === 0) {
-    queryFilters = {};
+    if (sortField) querySort[sortField] = parseInt(sortOrder) || 1;
   }
 
   try {
