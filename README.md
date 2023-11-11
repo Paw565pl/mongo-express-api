@@ -31,6 +31,6 @@ pnpm dev
 
 ### List of endpoints
 
-- GET, POST /products
+- GET (params: minPrice, maxPrice, sortField, sortOrder), POST /products
 - PUT, DELETE /products/:id
 - GET /products/raport
