@@ -1,5 +1,5 @@
 import { ObjectId } from "mongodb";
-import { getDb } from "../db/connection.js";
+import getDb from "../db/connection.js";
 
 const getProductById = async (req, res, next) => {
   const db = getDb();

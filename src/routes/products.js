@@ -1,7 +1,7 @@
 import { Router } from "express";
-const router = Router();
-import { getDb } from "../db/connection.js";
+import getDb from "../db/connection.js";
 import getProductById from "../middleware/getProductById.js";
+const router = Router();
 
 router.get("/", async (req, res) => {
   const db = getDb();

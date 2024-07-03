@@ -1,7 +1,7 @@
 import { Router } from "express";
-const router = Router();
-import { getDb } from "../db/connection.js";
+import getDb from "../db/connection.js";
 import data from "../db/sample_data.json" assert { type: "json" };
+const router = Router();
 
 router.post("/", async (req, res) => {
   const db = getDb();
