@@ -3,15 +3,17 @@ import getDb from "../db/connection.js";
 
 const getProductById = async (req, res, next) => {
   const db = getDb();
-
-  const _id = new ObjectId(req.params.id);
+  const _id = ObjectId.createFromHexString(req.params.id);
 
   try {
     const product = await db.findOne({ _id });
-    if (!product)
+
+    if (!product) {
       return res
         .status(404)
         .json({ message: "product with given id does not exist" });
+    }
+
     res.product = product;
     next();
   } catch (error) {
