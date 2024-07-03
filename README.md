@@ -35,4 +35,4 @@ pnpm seedDb
 
 - GET (params: minPrice, maxPrice, sortField, sortOrder), POST /products
 - GET, PUT, DELETE /products/:id
-- GET /products/raport
+- GET /products/report
