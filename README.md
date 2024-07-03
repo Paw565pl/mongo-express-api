@@ -1,35 +1,20 @@
-# Live demo
+# Express REST API with MongoDB
 
-[Hosted on render.com](https://mongo-express-api.onrender.com/products)
+This is a simple restful api providing CRUD operations for managing products.
 
 ### How to run it locally?
 
-1. Create .env file looking something like that
+It is fairly simple thanks to docker. Simply run this command after **cloning the repository**.
 
-```
-PORT=3000
-MONGO_URI=mongodb://localhost:27017
-```
-
-2. Install dependencies
-
-```
-pnpm i
+```sh
+docker compose up --build
 ```
 
-3. Run the server
+If you want to seed the database with sample data you can also run this command.
 
+```sh
+docker compose exec express pnpm seedDb
 ```
-pnpm dev
-```
-
-4. Optionally seed the database by running this command
-
-```
-pnpm seedDb
-```
-
-5. You are good to go!
 
 ### List of endpoints
 
