@@ -112,7 +112,7 @@ productsRouter.delete("/:id", getProductById, async (_, res) => {
   }
 });
 
-productsRouter.get("/raport", async (req, res) => {
+productsRouter.get("/raport", async (_, res) => {
   const db = getDb();
 
   const aggregation = [
