@@ -43,11 +43,14 @@ productsRouter.post("/", async (req, res) => {
   const { name, description, price_in_usd, amount, rating, supplier } =
     req.body;
 
+  if (!name || !description || !price_in_usd || !amount || !rating || !supplier)
+    return res.status(400).json({ message: "all fields are required" });
+
   try {
     const product = await db.findOne({ name });
     if (product !== null) return res.json({ message: "name is not unique" });
 
-    const newProduct = await db.insertOne({
+    const { insertedId } = await db.insertOne({
       name,
       description,
       price_in_usd,
@@ -55,6 +58,7 @@ productsRouter.post("/", async (req, res) => {
       rating,
       supplier,
     });
+    const newProduct = await db.findOne({ _id: insertedId });
     return res.status(201).json(newProduct);
   } catch (error) {
     return res.status(500).json({ message: error?.message });
