@@ -100,13 +100,13 @@ productsRouter.put("/:id", getProductById, async (req, res) => {
   }
 });
 
-productsRouter.delete("/:id", getProductById, async (req, res) => {
+productsRouter.delete("/:id", getProductById, async (_, res) => {
   const db = getDb();
   const product = res.product;
 
   try {
-    const deletedProduct = await db.deleteOne(product);
-    return res.json(deletedProduct);
+    await db.deleteOne(product);
+    return res.status(204).json({});
   } catch (error) {
     return res.status(500).json({ message: error?.message });
   }
