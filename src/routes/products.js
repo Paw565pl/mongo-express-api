@@ -77,6 +77,9 @@ productsRouter.put("/:id", getProductById, async (req, res) => {
   const { name, description, price_in_usd, amount, rating, supplier } =
     req.body;
 
+  if (!name || !description || !price_in_usd || !amount || !rating || !supplier)
+    return res.status(400).json({ message: "all fields are required" });
+
   const update = {
     $set: {
       name,
@@ -89,7 +92,8 @@ productsRouter.put("/:id", getProductById, async (req, res) => {
   };
 
   try {
-    const updatedProduct = await db.updateOne(product, update);
+    await db.updateOne(product, update);
+    const updatedProduct = await db.findOne({ _id: product._id });
     return res.json(updatedProduct);
   } catch (error) {
     return res.status(500).json({ message: error?.message });
