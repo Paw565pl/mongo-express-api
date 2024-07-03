@@ -1,9 +1,9 @@
-import seed from "./seed.js";
 import products from "./products.js";
+import seed from "./seed.js";
 
-const routes = (app) => {
+const registerRoutes = (app) => {
   app.use("/seed", seed);
   app.use("/products", products);
 };
 
-export default routes;
+export default registerRoutes;

@@ -1,12 +1,13 @@
 import cors from "cors";
 import express, { json } from "express";
-import routes from "./routes/routes.js";
+import registerRoutes from "./routes/routes.js";
 
 const app = express();
 
 app.use(cors());
 app.use(json());
-routes(app);
+
+registerRoutes(app);
 
 const port = process.env.PORT || 5000;
 
