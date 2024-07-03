@@ -23,12 +23,10 @@ pnpm i
 pnpm dev
 ```
 
-4. Seed the database by sending POST request to /seed with the given json
+4. Optionally seed the database by running this command
 
-```json
-{
-  "seed": "yes"
-}
+```
+pnpm seedDb
 ```
 
 5. You are good to go!
