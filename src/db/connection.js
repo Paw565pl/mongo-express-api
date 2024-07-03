@@ -1,11 +1,12 @@
-const { MongoClient } = require("mongodb");
-
+import { MongoClient } from "mongodb";
+import dotenv from "dotenv";
+dotenv.config();
 const uri = process.env.MONGO_URI;
 const client = new MongoClient(uri);
 
 let _db;
 
-const connectToDb = async () => {
+export const connectToDb = async () => {
   try {
     await client.connect();
     _db = client.db("products").collection("products");
@@ -16,9 +17,4 @@ const connectToDb = async () => {
   }
 };
 
-const getDb = () => _db;
-
-module.exports = {
-  connectToDb,
-  getDb,
-};
+export const getDb = () => _db;

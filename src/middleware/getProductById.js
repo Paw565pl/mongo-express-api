@@ -1,5 +1,5 @@
-const ObjectId = require("mongodb").ObjectId;
-const getDb = require("../db/connection").getDb;
+import { ObjectId } from "mongodb";
+import { getDb } from "../db/connection.js";
 
 const getProductById = async (req, res, next) => {
   const db = getDb();
@@ -19,4 +19,4 @@ const getProductById = async (req, res, next) => {
   }
 };
 
-module.exports = getProductById;
+export default getProductById;

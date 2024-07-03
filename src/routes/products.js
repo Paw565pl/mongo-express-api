@@ -1,7 +1,7 @@
-const express = require("express");
-const router = express.Router();
-const getDb = require("../db/connection").getDb;
-const getProductById = require("../middleware/getProductById");
+import { Router } from "express";
+const router = Router();
+import { getDb } from "../db/connection.js";
+import getProductById from "../middleware/getProductById.js";
 
 router.get("/", async (req, res) => {
   const db = getDb();
@@ -132,4 +132,4 @@ router.get("/raport", async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

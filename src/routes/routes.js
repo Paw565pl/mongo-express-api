@@ -1,9 +1,9 @@
-const seed = require("./seed");
-const products = require("./products");
+import seed from "./seed.js";
+import products from "./products.js";
 
 const routes = (app) => {
   app.use("/seed", seed);
   app.use("/products", products);
 };
 
-module.exports = routes;
+export default routes;

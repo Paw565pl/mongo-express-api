@@ -1,7 +1,7 @@
-const express = require("express");
-const router = express.Router();
-const getDb = require("../db/connection").getDb;
-const data = require("../db/sample_data.json");
+import { Router } from "express";
+const router = Router();
+import { getDb } from "../db/connection.js";
+import data from "../db/sample_data.json" assert { type: "json" };
 
 router.post("/", async (req, res) => {
   const db = getDb();
@@ -20,4 +20,4 @@ router.post("/", async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;
