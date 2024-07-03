@@ -34,5 +34,5 @@ pnpm seedDb
 ### List of endpoints
 
 - GET (params: minPrice, maxPrice, sortField, sortOrder), POST /products
-- PUT, DELETE /products/:id
+- GET, PUT, DELETE /products/:id
 - GET /products/raport

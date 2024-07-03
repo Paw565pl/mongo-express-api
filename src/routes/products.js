@@ -65,6 +65,11 @@ productsRouter.post("/", async (req, res) => {
   }
 });
 
+productsRouter.get("/:id", getProductById, (_, res) => {
+  const product = res.product;
+  return res.json(product);
+});
+
 productsRouter.put("/:id", getProductById, async (req, res) => {
   const db = getDb();
   const product = res.product;
