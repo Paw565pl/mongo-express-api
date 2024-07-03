@@ -1,7 +1,7 @@
-import products from "./products.js";
+import productsRouter from "./products.js";
 
 const registerRoutes = (app) => {
-  app.use("/products", products);
+  app.use("/products", productsRouter);
 };
 
 export default registerRoutes;

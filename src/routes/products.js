@@ -1,9 +1,10 @@
 import { Router } from "express";
 import getDb from "../db/connection.js";
 import getProductById from "../middleware/getProductById.js";
-const router = Router();
 
-router.get("/", async (req, res) => {
+const productsRouter = Router();
+
+productsRouter.get("/", async (req, res) => {
   const db = getDb();
   const queryParams = req.query;
 
@@ -36,7 +37,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+productsRouter.post("/", async (req, res) => {
   const db = getDb();
 
   const { name, description, price_in_usd, amount, rating, supplier } =
@@ -60,7 +61,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.put("/:id", getProductById, async (req, res) => {
+productsRouter.put("/:id", getProductById, async (req, res) => {
   const db = getDb();
   const product = res.product;
 
@@ -86,7 +87,7 @@ router.put("/:id", getProductById, async (req, res) => {
   }
 });
 
-router.delete("/:id", getProductById, async (req, res) => {
+productsRouter.delete("/:id", getProductById, async (req, res) => {
   const db = getDb();
   const product = res.product;
 
@@ -98,7 +99,7 @@ router.delete("/:id", getProductById, async (req, res) => {
   }
 });
 
-router.get("/raport", async (req, res) => {
+productsRouter.get("/raport", async (req, res) => {
   const db = getDb();
 
   const aggregation = [
@@ -132,4 +133,4 @@ router.get("/raport", async (req, res) => {
   }
 });
 
-export default router;
+export default productsRouter;
