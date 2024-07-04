@@ -13,7 +13,7 @@ docker compose up --build
 If you want to seed the database with sample data you can also run this command.
 
 ```sh
-docker compose exec express pnpm seedDb
+docker compose exec express pnpm seed_db
 ```
 
 ### List of endpoints
