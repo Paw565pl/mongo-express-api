@@ -1,5 +1,5 @@
 {
-  "name": "mongo-rest-api",
+  "name": "mongo-express-api",
   "version": "0.0.1",
   "description": "",
   "main": "src/server.js",
